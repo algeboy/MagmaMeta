@@ -1,0 +1,3 @@
+{
+    Option$RngIntElt$.mag
+}

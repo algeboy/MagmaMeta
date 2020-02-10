@@ -1,0 +1,68 @@
+
+declare type OptionAny;
+declare type NoneType : OptionAny;
+__the_none := New(NoneType);
+
+intrinsic Print(a::NoneType)
+{}
+    print("None");
+end intrinsic;
+
+intrinsic None() -> NoneType
+{}
+    return __the_none;
+end intrinsic;
+
+intrinsic 'eq'(x::NoneType, y::NoneType) -> BoolElt
+{}
+    return true;
+end intrinsic;
+
+declare type OptionRngIntResElt : OptionAny;
+declare type SomeRngIntResElt : OptionRngIntResElt;
+declare attributes SomeRngIntResElt : __val;
+
+
+intrinsic Unapply(s::SomeRngIntResElt) -> RngIntResElt
+{Unapply to extract the value of some.}
+    return s`__val;
+end intrinsic;
+
+intrinsic Print(a::Some_RngIntResElt_) 
+{}
+    print(Unapply(a));
+end intrinsic;
+
+intrinsic Some(a::RngIntResElt) -> SomeRngIntResElt
+{}
+    op := New( SomeRngIntResElt );
+    op`__val := a;
+    return op;
+end intrinsic;
+
+intrinsic Unit(a::RngIntResElt) -> OptionRngIntResElt 
+{}
+    return Some(a);
+end intrinsic;
+
+/*
+intrinsic map(a::Option_RngIntResElt_,f::_RngIntResElt_=>_B_) -> Option_B_
+{}
+    if ISA(a,None_RngIntResElt_) then 
+        return New( None_B_ );
+    else
+        sb := New(Option_B_);
+        sb`__val := Unapply(a) @ f;
+        return sb;
+    end if;
+end intrinsic;
+
+intrinsic join(a::Option_Option_RngIntResElt_) -> Option_RngIntResElt_
+{}
+    if ISA(a,None_Option_RngIntResElt_) then 
+        return New( None_RngIntResElt_ );
+    else
+        return Unapply(a);
+    end if;
+end intrinsic;
+*/
